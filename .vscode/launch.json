@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-NeuralNetworkApplication<neural_network>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.neural.network.neural_network.NeuralNetworkApplication",
+            "projectName": "neural_network",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
