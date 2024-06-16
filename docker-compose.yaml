@@ -1,0 +1,46 @@
+version: "26.1.1"
+services:
+  neural_network_model:
+    build: "./neural_network_model"
+    container_name: "neuralnetworkflask"
+    ports:
+      - 5000:5000
+    expose: 
+      - "5000"
+    networks:
+      neural_network:
+        ipv4_address: "170.168.80.6"
+
+  neural_network_backend:
+    build: "./neural_network_backend"
+    container_name: "nueralnetworkbackend"
+    ports: 
+      - 8080:8080
+    networks:
+      neural_network:
+        ipv4_address: "170.168.80.7"
+
+      
+  mongodb:
+    image: mongo:latest
+    container_name: "neuralnetworkdbhost"
+    ports:
+      - 27017:27017
+    networks:
+      neural_network:
+        ipv4_address: "170.168.80.8"
+    
+  neural_network_frontend:
+    build: "./neural_network_frontend"
+    container_name: "nueralnetworkfrontend"
+    ports:
+      - 5173:3000 
+   
+networks:  
+  neural_network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 170.168.0.0/16
+         gateway: 170.168.0.1
+    

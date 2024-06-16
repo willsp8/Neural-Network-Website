@@ -1,4 +1,5 @@
 from flask import Flask, request,  flash, jsonify, Response, send_from_directory
+from flask_cors import cross_origin
 from Neural_netowrk_model import run_neural_network, returnColumn
 import pandas as pd;
 import io
@@ -36,6 +37,7 @@ def allowed_file(filename):
 
 
 @app.route("/")
+@cross_origin()
 def home():
     return "Home"
 
@@ -133,5 +135,8 @@ def runNN():
 
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
+
+
+if __name__ == "__app__":
+    app.run(host='0.0.0.0', port='5000', debug=True)
