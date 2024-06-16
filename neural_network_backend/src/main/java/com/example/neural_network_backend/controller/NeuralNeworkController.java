@@ -78,7 +78,8 @@ public class NeuralNeworkController {
 
     @Autowired
     private ChatRepository chatRepo;
-
+ 
+    private String urlFlask = "http://170.168.80.6:5000";
     
     @GetMapping("/test")
     public String getMethodUsers2() {
@@ -314,7 +315,7 @@ public class NeuralNeworkController {
         
         // first we are creating a request using HttpRequest 
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("http://127.0.0.1:5000/nn"))
+        .uri(URI.create(urlFlask + "/nn"))
         .version(HttpClient.Version.HTTP_2)
         .GET()
         .build();
@@ -344,17 +345,17 @@ public class NeuralNeworkController {
 
 
 
-        try {
+        // try {
 
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get("./linear-regression/src/main/res/" + file.getOriginalFilename());
-            Files.write(path, bytes);
+        //     // Get the file and save it somewhere
+        //     byte[] bytes = file.getBytes();
+        //     Path path = Paths.get("./linear-regression/src/main/res/" + file.getOriginalFilename());
+        //     Files.write(path, bytes);
 
         
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
         // so this grabs anything from our principals 
         Principal principal = request2.getUserPrincipal();
@@ -364,7 +365,7 @@ public class NeuralNeworkController {
         System.out.println("---------- time " + principal.getName().toString());
 
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("http://127.0.0.1:5000/nn/columns"))
+        .uri(URI.create(urlFlask + "/nn/columns"))
         .POST(BodyPublishers.ofByteArray(file.getBytes()))
         .header("file", "hey")
         .header("file2", "hey222")
@@ -377,10 +378,11 @@ public class NeuralNeworkController {
         HttpResponse<String> response = null;
 
 		try {
-            
+            System.out.println("-------------- space222 " + urlFlask);
 			response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
 		} catch (IOException e) {
+            System.out.println("-------------- space " + urlFlask);
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -399,7 +401,7 @@ public class NeuralNeworkController {
         // first we are creating a request using HttpRequest 
         System.out.println(independent);
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("http://127.0.0.1:5000/nn/image"))
+        .uri(URI.create(urlFlask +  "/nn/image"))
         .header("independent", independent)
         .version(HttpClient.Version.HTTP_2)
         .GET()
@@ -430,7 +432,7 @@ public class NeuralNeworkController {
         @RequestParam("epochs") String epochs) throws Exception {
 
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("http://127.0.0.1:5000/nn/run"))
+        .uri(URI.create(urlFlask + "/nn/run"))
         .POST(BodyPublishers.ofByteArray(file.getBytes()))
         .header("target", target)
         .header("neurons", neurons)

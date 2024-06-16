@@ -104,7 +104,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
                 userToAdd.setSource(RegistrationSource.GOOGLE);
                 userRepo.save(userToAdd);
                 
-                DefaultOAuth2User newUser = new DefaultOAuth2User(List.of(new SimpleGrantedAuthority(userToAdd.getRole().name())), attributes, "id");
+                DefaultOAuth2User newUser = new DefaultOAuth2User(List.of(new SimpleGrantedAuthority(userToAdd.getRole().name())), attributes, "email");
 
                 Authentication securityAuth = new OAuth2AuthenticationToken(newUser, List.of(new SimpleGrantedAuthority(userToAdd.getRole().name())), oAuth2AuthenticationToken.getAuthorizedClientRegistrationId());
 
